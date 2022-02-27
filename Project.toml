@@ -1,0 +1,12 @@
+name = "AccretionDiscProfiles"
+uuid = "cabb4e56-f255-44e8-a431-a93e8eef5d9b"
+authors = ["fjebaker <fergusbkr@gmail.com>"]
+version = "0.1.0"
+
+[deps]
+AccretionGeometry = "7f85384a-175b-40eb-971c-1f0b02ab1b9a"
+ComputedGeodesicEquations = "42910a5e-bdf1-4870-a538-dfa35571a56d"
+GeodesicBase = "1f539516-e6d2-4f24-ab09-50f3ac3c4a5a"
+GeodesicTracer = "1f548346-32cf-4117-8ecc-304cf7418187"
+Parameters = "d96e819e-fc66-5662-9728-84c9c7592b0a"
+StaticArrays = "90137ffa-7385-5640-81b9-e52037218182"
