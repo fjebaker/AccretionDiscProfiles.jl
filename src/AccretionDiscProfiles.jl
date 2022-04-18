@@ -21,9 +21,9 @@ function tracegeodesics(
     m::AbstractMetricParams{T},
     model::AbstractCoronaModel{T},
     time_domain::Tuple{T,T};
-    n_samples=1024,
-    sampler=WeierstrassSampler(res=100.0),
-    kwargs...
+    n_samples = 1024,
+    sampler = WeierstrassSampler(res = 100.0),
+    kwargs...,
 ) where {T}
     us = sample_position(m, model, n_samples)
     vs = sample_velocity(m, model, sampler, us, n_samples)
@@ -37,9 +37,9 @@ function tracegeodesics(
     time_domain::Tuple{T,T},
     d::AbstractAccretionGeometry{T},
     ;
-    n_samples=1024,
-    sampler=WeierstrassSampler(res=100.0),
-    kwargs...
+    n_samples = 1024,
+    sampler = WeierstrassSampler(res = 100.0),
+    kwargs...,
 ) where {T}
     us = sample_position(m, model, n_samples)
     vs = sample_velocity(m, model, sampler, us, n_samples)
@@ -51,11 +51,10 @@ function renderprofile(
     m::AbstractMetricParams{T},
     model::AbstractCoronaModel{T},
     max_time::T,
-    d::AbstractAccretionGeometry{T}
-    ;
-    n_samples=2048,
-    sampler=WeierstrassSampler(res=100.0),
-    kwargs...
+    d::AbstractAccretionGeometry{T};
+    n_samples = 2048,
+    sampler = WeierstrassSampler(res = 100.0),
+    kwargs...,
 ) where {T}
     __renderprofile(m, model, d, n_samples, (0.0, max_time); kwargs...)
 end

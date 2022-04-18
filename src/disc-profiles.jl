@@ -3,7 +3,8 @@ abstract type AbstractAccretionProfile end
 abstract type AbstractInterpolatedProfile <: AbstractAccretionProfile end
 abstract type AbstractDelaunayProfile <: AbstractAccretionProfile end
 
-evaluate(aap::AbstractAccretionProfile, p) = error("Not implemented for `$(typeof(aap))` yet.")
+evaluate(aap::AbstractAccretionProfile, p) =
+    error("Not implemented for `$(typeof(aap))` yet.")
 
 struct WeightedPoint{T} <: Point2D
     _x::Float64
@@ -18,18 +19,19 @@ struct DelaunayDiscProfile{T} <: AbstractDelaunayProfile
     tesselation::DelaunayTessellation2D{WeightedPoint{T}}
     radius::Float64
 end
-xfm_forward(ddp::DelaunayDiscProfile{T}, p) where {T} = ((p .+ ddp.radius) ./ (2 .* ddp.radius)) .* 0.99 .+ 1.005
-xfm_backward(ddp::DelaunayDiscProfile{T}, p) where {T} = (((points .- 1.005) ./ 0.99) .* 2 .* ddp.radius) .- ddp.radius
+xfm_forward(ddp::DelaunayDiscProfile{T}, p) where {T} =
+    ((p .+ ddp.radius) ./ (2 .* ddp.radius)) .* 0.99 .+ 1.005
+xfm_backward(ddp::DelaunayDiscProfile{T}, p) where {T} =
+    (((points .- 1.005) ./ 0.99) .* 2 .* ddp.radius) .- ddp.radius
 
 
 function __renderprofile(
     m::AbstractMetricParams{T},
     model::AbstractCoronaModel{T},
-    d::AbstractAccretionGeometry{T}
-    N, 
+    d::AbstractAccretionGeometry{T}N,
     time_domain;
     sampler,
-    kwargs...
+    kwargs...,
 ) where {T}
     # TODO
     error("Not implemented for $(typeof(d)).")
@@ -39,11 +41,10 @@ end
 function __renderprofile(
     m::AbstractMetricParams{T},
     model::AbstractCoronaModel{T},
-    d::GeometricThinDisc{T}
-    N, 
+    d::GeometricThinDisc{T}N,
     time_domain;
     sampler,
-    kwargs...
+    kwargs...,
 ) where {T}
     # TODO
     error("Not implemented for $(typeof(d)).")
