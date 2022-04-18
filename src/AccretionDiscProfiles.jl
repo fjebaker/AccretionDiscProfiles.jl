@@ -22,7 +22,7 @@ function tracegeodesics(
     model::AbstractCoronaModel{T},
     time_domain::Tuple{T,T};
     n_samples=1024,
-    sampler=UniformProjectionSampler(res=100.0),
+    sampler=WeierstrassSampler(res=100.0),
     kwargs...
 ) where {T}
     us = sample_position(m, model, n_samples)
@@ -38,7 +38,7 @@ function tracegeodesics(
     d::AbstractAccretionGeometry{T},
     ;
     n_samples=1024,
-    sampler=UniformProjectionSampler(res=100.0),
+    sampler=WeierstrassSampler(res=100.0),
     kwargs...
 ) where {T}
     us = sample_position(m, model, n_samples)
@@ -54,7 +54,7 @@ function renderprofile(
     d::AbstractAccretionGeometry{T}
     ;
     n_samples=2048,
-    sampler=UniformProjectionSampler(res=100.0),
+    sampler=WeierstrassSampler(res=100.0),
     kwargs...
 ) where {T}
     __renderprofile(m, model, d, n_samples, (0.0, max_time); kwargs...)

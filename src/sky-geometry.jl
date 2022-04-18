@@ -13,10 +13,10 @@ struct EvenSampler{D} <: AbstractDirectionSampler{D}
     EvenSampler(domain::AbstractSkyDomain) = new{domain}()
     EvenSampler(;domain::AbstractSkyDomain=LowerHemisphere()) = new{typeof(domain)}()
 end
-struct UniformProjectionSampler{D} <: AbstractDirectionSampler{D}
+struct WeierstrassSampler{D} <: AbstractDirectionSampler{D}
     resolution::Float64
-    UniformProjectionSampler(res, domain::AbstractSkyDomain) = new{typeof(domain)}(res)
-    UniformProjectionSampler(;res=100.0, domain::AbstractSkyDomain=LowerHemisphere()) = UniformProjectionSampler(res, domain)
+    WeierstrassSampler(res, domain::AbstractSkyDomain) = new{typeof(domain)}(res)
+    WeierstrassSampler(;res=100.0, domain::AbstractSkyDomain=LowerHemisphere()) = WeierstrassSampler(res, domain)
 end
 
 sample_azimuth(sm::AbstractDirectionSampler{D}, i) where {D} = error("Not implemented for $(typeof(sm)).")
@@ -34,9 +34,9 @@ sample_elevation(::EvenSampler{LowerHemisphere}, i) = acos(1 - i)
 sample_elevation(::EvenSampler{BothHemispheres}, i) = acos(1 - 2i)
 
 # uniform
-sample_azimuth(::UniformProjectionSampler{D}, i) where {D} = π * (1 + √5) * i
-sample_elevation(sm::UniformProjectionSampler{LowerHemisphere}, i) = π - 2atan(√(sm.resolution/i))
-function sample_elevation(sm::UniformProjectionSampler{BothHemispheres}, i)
+sample_azimuth(::WeierstrassSampler{D}, i) where {D} = π * (1 + √5) * i
+sample_elevation(sm::WeierstrassSampler{LowerHemisphere}, i) = π - 2atan(√(sm.resolution/i))
+function sample_elevation(sm::WeierstrassSampler{BothHemispheres}, i)
     ϕ = 2atan(√(sm.resolution/i))
     if iseven(i)
         ϕ
@@ -44,7 +44,7 @@ function sample_elevation(sm::UniformProjectionSampler{BothHemispheres}, i)
         π - ϕ
     end
 end
-sample_angles(sm::UniformProjectionSampler{D}, i, N) where {D} = (sample_elevation(sm, i), sample_azimuth(sm, i))
+sample_angles(sm::WeierstrassSampler{D}, i, N) where {D} = (sample_elevation(sm, i), sample_azimuth(sm, i))
 
 
 function convert_angles(a, r, θ, ϕ, θ_obs, ϕ_obs)
@@ -64,3 +64,5 @@ end
 function vector_to_local_sky(m::BoyerLindquist{T}, u, θ, ϕ) where {T}
     convert_angles(m.a, u[2], u[3], u[4], θ, ϕ)
 end
+
+export LowerHemisphere, BothHemispheres, RandomSampler, EvenSampler, WeierstrassSampler
