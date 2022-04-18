@@ -1,7 +1,7 @@
 name = "AccretionDiscProfiles"
 uuid = "cabb4e56-f255-44e8-a431-a93e8eef5d9b"
 authors = ["fjebaker <fergusbkr@gmail.com>"]
-version = "0.0.1"
+version = "0.0.2"
 
 [deps]
 AccretionGeometry = "7f85384a-175b-40eb-971c-1f0b02ab1b9a"
